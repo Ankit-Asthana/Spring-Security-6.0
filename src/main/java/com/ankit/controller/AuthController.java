@@ -1,12 +1,10 @@
 package com.ankit.controller;
 
+import com.ankit.model.User;
 import com.ankit.security.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -15,12 +13,17 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
     @PostMapping("/signup")
-    public ResponseEntity<AuthenticationResponse> signup(@RequestBody RegisterRequest request){
+    public ResponseEntity<User> signup(@RequestBody User request){
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @GetMapping("/start")
+    public ResponseEntity<?> start(){
+        return ResponseEntity.ok("Admin Control");
     }
 }
